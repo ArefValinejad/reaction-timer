@@ -1,8 +1,12 @@
 <template>
+  <div class="result">
+    <p>Correct: {{ correctTimes }}</p>
+    <p>Wrong: {{ wrongTimes }}</p>
+  </div>
   <div class="container">
     <div
       class="divBtn"
-      :class="{ 'green-backgrond': item === 5 }"
+      :class="{ 'green-backgrond': item === randomNumber }"
       v-for="(item, index) in 9"
       :key="index"
       @click="handelClick(item)"
@@ -12,13 +16,27 @@
 
 <script>
 export default {
+  props: ["isPlaying"],
   name: "App",
   data() {
-    return {};
+    return {
+      randomNumber: Math.floor(Math.random() * 9) + 1,
+      correctTimes: 0,
+      wrongTimes: 0,
+    };
   },
   methods: {
     handelClick(id) {
-      console.log(id);
+      if (id === this.randomNumber) {
+        this.correctTimes++;
+      } else {
+        this.wrongTimes++;
+      }
+      if (this.correctTimes + this.wrongTimes == 20) {
+        this.isPlaying = false;
+      }
+
+      this.randomNumber = Math.floor(Math.random() * 9) + 1;
     },
   },
 };
@@ -46,5 +64,12 @@ export default {
 
 .green-backgrond {
   background-color: green;
+}
+
+.result {
+  background-color: lightsalmon;
+  width: 750px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
