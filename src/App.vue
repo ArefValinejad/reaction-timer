@@ -1,17 +1,16 @@
 <template>
   <h1>Reaction Timer</h1>
   <button class="btn" @click="start" :disabled="isPlaying">Play</button>
-  <results v-if="showResult" :score="score" />
-  <Block v-if="isPlaying" :delay="delay" @end="endGame" />
+
+  <ButtonBox v-if="isPlaying" />
 </template>
 
 <script>
-import Block from "./components/Block.vue";
-import Results from "./components/Results.vue";
+import ButtonBox from "./components/ButtonBox.vue";
 
 export default {
   name: "App",
-  components: { Block, Results },
+  components: { ButtonBox },
   data() {
     return {
       delay: null,
@@ -23,7 +22,7 @@ export default {
   },
   methods: {
     start() {
-      this.delay = 2000 + Math.random() * 5000;
+      // this.delay = 2000 + Math.random() * 5000;
       this.isPlaying = true;
       this.showResult = false;
     },
