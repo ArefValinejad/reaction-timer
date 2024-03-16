@@ -2,7 +2,7 @@
   <h1>Reaction Timer</h1>
   <button class="btn" @click="start" :disabled="isPlaying">Play</button>
 
-  <ButtonBox v-if="isPlaying" :isPlaying="isPlaying" />
+  <ButtonBox v-if="isPlaying" />
 </template>
 
 <script>

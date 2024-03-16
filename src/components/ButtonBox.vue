@@ -2,8 +2,9 @@
   <div class="result">
     <p>Correct: {{ correctTimes }}</p>
     <p>Wrong: {{ wrongTimes }}</p>
+    <p class="showMessage" v-if="showMessage">Game is over</p>
   </div>
-  <div class="container">
+  <div class="container" v-if="isPlaying">
     <div
       class="divBtn"
       :class="{ 'green-backgrond': item === randomNumber }"
@@ -16,15 +17,24 @@
 
 <script>
 export default {
-  props: ["isPlaying"],
   name: "App",
   data() {
     return {
       randomNumber: Math.floor(Math.random() * 9) + 1,
       correctTimes: 0,
       wrongTimes: 0,
+      isPlaying: true,
+
+      showMessage: false,
     };
   },
+  mounted() {
+    setTimeout(() => {
+      this.showMessage = true;
+      this.isPlaying = false;
+    }, 10000);
+  },
+
   methods: {
     handelClick(id) {
       if (id === this.randomNumber) {
@@ -33,7 +43,7 @@ export default {
         this.wrongTimes++;
       }
       if (this.correctTimes + this.wrongTimes == 20) {
-        this.isPlaying = false;
+        console.log("done", this.isPlaying);
       }
 
       this.randomNumber = Math.floor(Math.random() * 9) + 1;
@@ -68,8 +78,18 @@ export default {
 
 .result {
   background-color: lightsalmon;
-  width: 750px;
+  width: 760px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.showMessage {
+  width: 760px;
+  height: 100px;
+  background-color: brown;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: xx-large;
 }
 </style>
